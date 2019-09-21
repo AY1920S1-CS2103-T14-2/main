@@ -19,7 +19,7 @@ import seedu.tarence.logic.parser.exceptions.ParseException;
 /**
  * Parses user input.
  */
-public class StudentBookParser {
+public class ApplicationParser {
 
     /**
      * Used for initial separation of command word and args.

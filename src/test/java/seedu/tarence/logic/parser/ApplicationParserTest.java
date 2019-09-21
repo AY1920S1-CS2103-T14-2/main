@@ -28,9 +28,9 @@ import seedu.tarence.testutil.EditPersonDescriptorBuilder;
 import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.PersonUtil;
 
-public class StudentBookParserTest {
+public class ApplicationParserTest {
 
-    private final StudentBookParser parser = new StudentBookParser();
+    private final ApplicationParser parser = new ApplicationParser();
 
     @Test
     public void parseCommand_add() throws Exception {
