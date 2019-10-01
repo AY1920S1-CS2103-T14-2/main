@@ -33,6 +33,8 @@ import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddStudentCommandTest {
 
+    public static final String VALID_MOD_CODE = "ES1601";
+    public static final String VALID_TUT_NAME = "T02";
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
