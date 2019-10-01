@@ -7,20 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.tarence.testutil.Assert.assertThrows;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
-import seedu.tarence.commons.core.GuiSettings;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
-import seedu.tarence.model.Model;
 import seedu.tarence.model.ReadOnlyApplication;
-import seedu.tarence.model.ReadOnlyUserPrefs;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.module.Module;
 import seedu.tarence.model.person.Person;
@@ -33,6 +27,8 @@ import seedu.tarence.testutil.TutorialBuilder;
 
 public class AddStudentCommandTest {
 
+    public static final String VALID_MOD_CODE = "ES1601";
+    public static final String VALID_TUT_NAME = "T02";
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> new AddStudentCommand(null));
