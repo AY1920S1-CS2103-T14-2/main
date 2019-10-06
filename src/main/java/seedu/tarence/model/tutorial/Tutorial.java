@@ -28,7 +28,8 @@ public class Tutorial {
      * Every field must be present and not null.
      */
     public Tutorial(TutName tutName, DayOfWeek day, LocalTime startTime,
-            List<Integer> weeks, Duration duration, List<Student> students, ModCode modCode) {
+            List<Week> weeks, Duration duration,
+            List<Student> students, ModCode modCode) {
         requireAllNonNull(tutName, day, startTime, weeks, students, modCode);
         this.tutName = tutName;
         this.timeTable = new TimeTable(day, startTime, weeks, duration);
@@ -65,7 +66,7 @@ public class Tutorial {
             return true;
         }
 
-        if (!(other instanceof Class)) {
+        if (!(other instanceof Tutorial)) {
             return false;
         }
 
@@ -88,7 +89,7 @@ public class Tutorial {
     }
 
     /**
-     * Returns true if both Tutorials have the same name & timetable.
+     * Returns true if both Tutorials have the same name, timetable and modcode.
      *
      */
     public boolean isSameTutorial(Tutorial otherTutorial) {

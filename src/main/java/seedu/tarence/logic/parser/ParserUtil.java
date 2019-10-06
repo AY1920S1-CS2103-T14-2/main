@@ -17,6 +17,7 @@ import seedu.tarence.model.person.Name;
 import seedu.tarence.model.student.MatricNum;
 import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.tutorial.TutName;
+import seedu.tarence.model.tutorial.Week;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -181,21 +182,20 @@ public class ParserUtil {
      * Parses a {@code String weeks} into an ArrayList of Integers.
      *
      * @param weeks User string. Eg 1,2,7
-     * @return ArrayList of Integers representing the weeks.
+     * @return ArrayList of Weeks.
      * @throws ParseException if unable to parse the string into Integers.
      */
-    public static ArrayList<Integer> parseWeeks(String weeks) throws ParseException {
+    public static ArrayList<Week> parseWeeks(String weeks) throws ParseException {
         requireNonNull(weeks);
-        ArrayList<Integer> listOfWeeks = new ArrayList<Integer>();
+        ArrayList<Week> listOfWeeks = new ArrayList<>();
         String[] weekNumbers = weeks.split(",");
 
         try {
             for (String weekNumber : weekNumbers) {
-                listOfWeeks.add(Integer.parseInt(weekNumber));
-
+                listOfWeeks.add(new Week(Integer.parseInt(weekNumber)));
             }
-        } catch (NumberFormatException e) {
-            throw new ParseException("Invalid week numbers entered. Should contain only numbers");
+        } catch (IllegalArgumentException e) {
+            throw new ParseException("Invalid week numbers entered. Should contain only numbers from 1 to 13.");
         }
         return listOfWeeks;
     }
