@@ -11,7 +11,12 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NUSNET_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_BOB;
 
+import seedu.tarence.model.Application;
 import seedu.tarence.model.student.Student;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.
@@ -58,4 +63,19 @@ public class TypicalStudents {
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 
     private TypicalStudents() {} // prevents instantiation
+
+    /**
+     * Returns an {@code Application} with all the typical students.
+     */
+    public static Application getTypicalApplication() {
+        Application ab = new Application();
+        for (Student student : getTypicalStudents()) {
+            ab.addStudent(student);
+        }
+        return ab;
+    }
+
+    public static List<Student> getTypicalStudents() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
+    }
 }

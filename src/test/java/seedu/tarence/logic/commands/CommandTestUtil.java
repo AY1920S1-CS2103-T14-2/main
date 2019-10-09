@@ -22,6 +22,7 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -92,9 +93,9 @@ public class CommandTestUtil {
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
 
-    public static final String INVALID_TUTORIAL_INDEX_1 = " " + PREFIX_TUTORIAL_INDEX + "sa&";
-    public static final String INVALID_TUTORIAL_INDEX_2 = " " + PREFIX_TUTORIAL_INDEX + "☹";
-    public static final String INVALID_TUTORIAL_INDEX_3 = " " + PREFIX_TUTORIAL_INDEX + "0";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_1 = " " + PREFIX_TUTORIAL_INDEX + "sa&";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_2 = " " + PREFIX_TUTORIAL_INDEX + "☹";
+    public static final String INVALID_TUTORIAL_INDEX_DESC_3 = " " + PREFIX_TUTORIAL_INDEX + "0";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -177,6 +178,20 @@ public class CommandTestUtil {
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
         assertEquals(1, model.getFilteredPersonList().size());
+    }
+
+    /**
+     * Updates {@code model}'s application to show only the student at the given {@code targetIndex} in the
+     * {@code model}'s application.
+     */
+    public static void showStudentAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredStudentList().size());
+
+        Student student = model.getFilteredStudentList().get(targetIndex.getZeroBased());
+        final String[] splitName = student.getName().fullName.split("\\s+");
+        model.updateFilteredStudentList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+
+        assertEquals(1, model.getFilteredStudentList().size());
     }
 
 }

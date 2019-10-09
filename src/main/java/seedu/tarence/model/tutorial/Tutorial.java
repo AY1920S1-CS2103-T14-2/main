@@ -70,6 +70,13 @@ public class Tutorial {
     }
 
     /**
+     * Removes a student from a tutorial
+     */
+    public void deleteStudent(Student student) {
+        students.remove(student);
+    }
+
+    /**
      * Sets a Student's Attendance.
      */
     public void setAttendance(Week week, Student student) {
