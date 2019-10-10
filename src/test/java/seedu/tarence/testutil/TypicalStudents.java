@@ -11,12 +11,12 @@ import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NUSNET_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_AMY;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_TUTORIAL_NAME_BOB;
 
-import seedu.tarence.model.Application;
-import seedu.tarence.model.student.Student;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.tarence.model.Application;
+import seedu.tarence.model.student.Student;
 
 /**
  * A utility class containing a list of {@code Student} objects to be used in tests.

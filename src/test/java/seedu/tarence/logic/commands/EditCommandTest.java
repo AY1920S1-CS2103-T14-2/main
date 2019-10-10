@@ -7,7 +7,6 @@ import static seedu.tarence.logic.commands.CommandTestUtil.DESC_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.tarence.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.tarence.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.tarence.logic.commands.CommandTestUtil.showStudentAtIndex;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_FIRST_IN_LIST;
 import static seedu.tarence.testutil.TypicalIndexes.INDEX_SECOND_IN_LIST;
@@ -22,10 +21,8 @@ import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
 import seedu.tarence.model.ModelManager;
 import seedu.tarence.model.UserPrefs;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
-import seedu.tarence.testutil.PersonBuilder;
 import seedu.tarence.testutil.StudentBuilder;
 
 /**
@@ -51,7 +48,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index indexLastStudent= Index.fromOneBased(model.getFilteredStudentList().size());
+        Index indexLastStudent = Index.fromOneBased(model.getFilteredStudentList().size());
         Student lastStudent = model.getFilteredStudentList().get(indexLastStudent.getZeroBased());
 
         StudentBuilder studentInList = new StudentBuilder(lastStudent);

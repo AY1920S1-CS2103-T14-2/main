@@ -3,7 +3,6 @@ package seedu.tarence.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.tarence.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.tarence.model.Model.PREDICATE_SHOW_ALL_STUDENTS;
 
 import java.util.List;
@@ -17,7 +16,6 @@ import seedu.tarence.model.Model;
 import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.Email;
 import seedu.tarence.model.person.Name;
-import seedu.tarence.model.person.Person;
 import seedu.tarence.model.student.MatricNum;
 import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
