@@ -292,6 +292,11 @@ public class MarkAttendanceCommandTest {
         }
 
         @Override
+        public void setStudent(Student target, Student editedStudent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void deleteStudent(Student student) {
             throw new AssertionError("This method should not be called.");
         }

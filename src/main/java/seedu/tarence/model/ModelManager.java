@@ -140,6 +140,12 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public void setStudent(Student target, Student editedStudent) {
+        requireAllNonNull(target, editedStudent);
+        application.setStudent(target, editedStudent);
+    }
+
+    @Override
     public void deleteStudent(Student student) {
         application.removeStudent(student);
     }

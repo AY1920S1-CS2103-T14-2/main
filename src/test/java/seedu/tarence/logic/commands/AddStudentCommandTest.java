@@ -268,6 +268,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public void setStudent(Student target, Student editedStudent) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasModule(Module module) {
             return false;
         }

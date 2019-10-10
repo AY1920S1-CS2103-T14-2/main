@@ -24,7 +24,7 @@ import java.util.List;
 public class TypicalStudents {
 
     public static final Student ALICE = new StudentBuilder().withName("Alice Pauline")
-            .withEmail("alice@example.com").withMatricNum("A0123456A").withNusnetId("e0123456")
+            .withEmail("alice@example.com").withMatricNum("A0123456X").withNusnetId("e0123456")
             .build();
     public static final Student BENSON = new StudentBuilder().withName("Benson Meier")
             .withEmail("johnd@example.com").withMatricNum("A1234560A").withNusnetId("e1234560")

@@ -163,6 +163,7 @@ public class Application implements ReadOnlyApplication {
             }
         }
     }
+
     ////=================== student-level operations    ================================================================
     /**
      * Returns true if a student with the same identity as {@code student} exists in the application.
@@ -187,7 +188,26 @@ public class Application implements ReadOnlyApplication {
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
-        persons.setPerson(target, editedStudent);
+        students.setPerson(target, editedStudent);
+
+        // Modify tutorial level
+        for (Tutorial tutorial : tutorials) {
+            if (tutorial.getTutName().equals(target.getTutName())) {
+                tutorial.setStudent(target, editedStudent);
+            }
+        }
+
+        // Modify Module level: TODO - refactor
+        for (Module module : modules) {
+            if (module.getModCode().equals(target.getModCode())) {
+                Module targetMod = module;
+                for (Tutorial tutorial : targetMod.getTutorials()) {
+                    if (tutorial.getTutName().equals(target.getTutName())) {
+                        tutorial.setStudent(target, editedStudent);
+                    }
+                }
+            }
+        }
     }
 
     /**
