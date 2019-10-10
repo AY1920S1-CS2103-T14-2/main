@@ -190,8 +190,12 @@ public class Application implements ReadOnlyApplication {
      */
     public void setStudent(Student target, Student editedStudent) {
         requireNonNull(editedStudent);
-        students.setPerson(target, editedStudent);
+        //students.setPerson(target, editedStudent);
+        removeStudent(target);
 
+        addStudent(editedStudent);
+        addStudentToTutorial(editedStudent);
+        /*
         // Modify tutorial level
         for (Tutorial tutorial : tutorials) {
             if (tutorial.getTutName().equals(target.getTutName())) {
@@ -210,6 +214,8 @@ public class Application implements ReadOnlyApplication {
                 }
             }
         }
+
+         */
     }
 
     /**

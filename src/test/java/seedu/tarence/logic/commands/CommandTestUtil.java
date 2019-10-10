@@ -15,15 +15,21 @@ import static seedu.tarence.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Optional;
 
 import seedu.tarence.commons.core.index.Index;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.model.Application;
 import seedu.tarence.model.Model;
+import seedu.tarence.model.module.ModCode;
 import seedu.tarence.model.person.NameContainsKeywordsPredicate;
 import seedu.tarence.model.person.Person;
+import seedu.tarence.model.student.MatricNum;
+import seedu.tarence.model.student.NusnetId;
 import seedu.tarence.model.student.Student;
+import seedu.tarence.model.tutorial.TutName;
 import seedu.tarence.testutil.EditPersonDescriptorBuilder;
+import seedu.tarence.testutil.EditStudentDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -39,6 +45,7 @@ public class CommandTestUtil {
     public static final String VALID_MODULE_AMY = "CS1010";
     public static final String VALID_MODULE_BOB = "CS2030";
     public static final String VALID_NUSNET_AMY = "E0123456";
+    public static final String VALID_NUSNET_BOB = "E0035152";
     public static final String VALID_TUTORIAL_NAME_AMY = "T01";
     public static final String VALID_TUTORIAL_NAME_BOB = "T10";
     public static final String VALID_TUTORIAL_DAY_AMY = "MONDAY";
@@ -102,10 +109,22 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditStudentDescriptor DESC_STUDENT_AMY;
+    public static final EditCommand.EditStudentDescriptor DESC_STUDENT_BOB;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).withEmail(VALID_EMAIL_AMY).build();
         DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).withEmail(VALID_EMAIL_BOB).build();
+        DESC_STUDENT_AMY = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withEmail(VALID_EMAIL_AMY).withModCode(new ModCode(VALID_MODCODE))
+                .withTutName(new TutName(VALID_TUTORIAL_NAME))
+                .withMatricNum(Optional.of(new MatricNum(VALID_MATRIC_AMY)))
+                .withNusnetId(Optional.of(new NusnetId(VALID_NUSNET_AMY))).build();
+        DESC_STUDENT_BOB = new EditStudentDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withEmail(VALID_EMAIL_BOB).withModCode(new ModCode(VALID_MODCODE))
+                .withTutName(new TutName(VALID_TUTORIAL_NAME))
+                .withMatricNum(Optional.of(new MatricNum(VALID_MATRIC_BOB)))
+                .withNusnetId(Optional.of(new NusnetId(VALID_NUSNET_BOB))).build();
     }
 
     /**

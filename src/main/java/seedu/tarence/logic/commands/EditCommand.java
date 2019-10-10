@@ -44,18 +44,18 @@ public class EditCommand extends Command {
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     private final Index index;
-    private final EditPersonDescriptor editPersonDescriptor;
+    private final EditStudentDescriptor editStudentDescriptor;
 
     /**
      * @param index of the person in the filtered person list to edit
-     * @param editPersonDescriptor details to edit the person with
+     * @param editStudentDescriptor details to edit the person with
      */
-    public EditCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
+    public EditCommand(Index index, EditStudentDescriptor editStudentDescriptor) {
         requireNonNull(index);
-        requireNonNull(editPersonDescriptor);
+        requireNonNull(editStudentDescriptor);
 
         this.index = index;
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        this.editStudentDescriptor = new EditStudentDescriptor(editStudentDescriptor);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class EditCommand extends Command {
         }
 
         Student studentToEdit = lastShownList.get(index.getZeroBased());
-        Student editedStudent = createEditedStudent(studentToEdit, editPersonDescriptor);
+        Student editedStudent = createEditedStudent(studentToEdit, editStudentDescriptor);
 
         if (!studentToEdit.isSameStudent(editedStudent) && model.hasStudent(editedStudent)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
@@ -93,15 +93,27 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Student} with the details of {@code studentToEdit}
      * edited with {@code editPersonDescriptor}.
      */
-    private static Student createEditedStudent(Student studentToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Student createEditedStudent(Student studentToEdit, EditStudentDescriptor editStudentDescriptor) {
         assert studentToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElse(studentToEdit.getName());
-        Email updatedEmail = editPersonDescriptor.getEmail().orElse(studentToEdit.getEmail());
-        ModCode modCode = studentToEdit.getModCode();
-        TutName tutName = studentToEdit.getTutName();
-        Optional<NusnetId> nusnetId = studentToEdit.getNusnetId();
-        Optional<MatricNum> matricNum = studentToEdit.getMatricNum();
+        Name updatedName = editStudentDescriptor.getName().orElse(studentToEdit.getName());
+        Email updatedEmail = editStudentDescriptor.getEmail().orElse(studentToEdit.getEmail());
+        ModCode modCode = editStudentDescriptor.getModCode().orElse(studentToEdit.getModCode());
+        TutName tutName = editStudentDescriptor.getTutName().orElse(studentToEdit.getTutName());
+
+        Optional<NusnetId> nusnetId;
+        Optional<MatricNum> matricNum;
+        if (editStudentDescriptor.getNusnetId() == null) {
+            nusnetId = studentToEdit.getNusnetId();
+        } else {
+            nusnetId = editStudentDescriptor.getNusnetId();
+        }
+
+        if (editStudentDescriptor.getMatricNum() == null) {
+            matricNum = studentToEdit.getMatricNum();
+        } else {
+            matricNum = editStudentDescriptor.getMatricNum();
+        }
 
         return new Student(updatedName, updatedEmail, matricNum, nusnetId, modCode, tutName);
     }
@@ -136,7 +148,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
-                && editPersonDescriptor.equals(e.editPersonDescriptor);
+                && editStudentDescriptor.equals(e.editStudentDescriptor);
     }
 
     /**
@@ -195,6 +207,108 @@ public class EditCommand extends Command {
 
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
+
+            return getName().equals(e.getName())
+                    && getEmail().equals(e.getEmail());
+        }
+    }
+
+    /**
+     * Stores the details to edit the student with. Each non-empty field value will replace the
+     * corresponding field value of the student.
+     */
+    public static class EditStudentDescriptor {
+        private Name name;
+        private Email email;
+        private TutName tutName;
+        private ModCode modCode;
+        private Optional<MatricNum> matricNum;
+        private Optional<NusnetId> nusnetId;
+
+        public EditStudentDescriptor() {}
+
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
+        public EditStudentDescriptor(EditStudentDescriptor toCopy) {
+            setName(toCopy.name);
+            setEmail(toCopy.email);
+            setModCode(toCopy.modCode);
+            setTutName(toCopy.tutName);
+            setMatricNum(toCopy.matricNum);
+            setNusnetId(toCopy.nusnetId);
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyNonNull(name, email, modCode, tutName, matricNum, nusnetId);
+        }
+
+        public void setName(Name name) {
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
+        }
+
+        public void setEmail(Email email) {
+            this.email = email;
+        }
+
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
+        }
+
+        public Optional<TutName> getTutName() {
+            return Optional.ofNullable(tutName);
+        }
+
+        public void setTutName(TutName tutName) {
+            this.tutName = tutName;
+        }
+
+        public Optional<ModCode> getModCode() {
+            return Optional.ofNullable(modCode);
+        }
+
+        public void setModCode(ModCode modCode) {
+            this.modCode = modCode;
+        }
+
+        public Optional<MatricNum> getMatricNum() {
+            return matricNum;
+        }
+
+        public void setMatricNum(Optional<MatricNum> matricNum) {
+            this.matricNum = matricNum;
+        }
+
+        public Optional<NusnetId> getNusnetId() {
+            return nusnetId;
+        }
+
+        public void setNusnetId(Optional<NusnetId> nusnetId) {
+            this.nusnetId = nusnetId;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditStudentDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditStudentDescriptor e = (EditStudentDescriptor) other;
 
             return getName().equals(e.getName())
                     && getEmail().equals(e.getEmail());

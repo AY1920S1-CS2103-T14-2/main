@@ -33,8 +33,8 @@ public class AddStudentCommandParser extends CommandParser<AddStudentCommand> {
 
     private static final OptionalArgument[] optionalArgs = {
         OptionalArgument.OPTIONAL_MATNO,
-        OptionalArgument.OPTIONAL_NUSID};
-
+        OptionalArgument.OPTIONAL_NUSID
+    };
     /**
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
