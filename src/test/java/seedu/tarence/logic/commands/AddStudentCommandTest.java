@@ -350,6 +350,11 @@ public class AddStudentCommandTest {
         }
 
         @Override
+        public Command peekPendingCommand() {
+            return null;
+        }
+
+        @Override
         public boolean hasPendingCommand() {
             return false;
         }
