@@ -28,7 +28,6 @@ import seedu.tarence.logic.Logic;
 import seedu.tarence.logic.commands.CommandResult;
 import seedu.tarence.logic.commands.exceptions.CommandException;
 import seedu.tarence.logic.parser.exceptions.ParseException;
-import seedu.tarence.model.module.Module;
 import seedu.tarence.model.student.Student;
 import seedu.tarence.model.tutorial.Attendance;
 import seedu.tarence.model.tutorial.Tutorial;
@@ -48,15 +47,11 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private TableView<String[]> attendanceList;
     private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
-    private ObservableList<Module> modList;
-    private ObservableList<Student> studentList;
-    private ObservableList<Tutorial> tutorialList;
 
     @FXML
     private TableView attendancePlaceholder;
