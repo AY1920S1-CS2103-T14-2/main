@@ -1,5 +1,7 @@
 package seedu.tarence.testutil;
 
+import static seedu.tarence.testutil.TypicalTutorials.CS1101S_LAB04;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +34,12 @@ public class TypicalModules {
     public static Application getTypicalApplication() {
         List<Student> students = TypicalStudents.getTypicalStudents();
         Tutorial tutorial = new TutorialBuilder().withStudents(students).build();
+        Tutorial secondTutorial = CS1101S_LAB04;
         List<Module> modules = new ArrayList<Module>();
         modules.add(CS1101S);
         modules.add(CS2103);
         modules.get(0).addTutorial(tutorial);
+        modules.get(0).addTutorial(secondTutorial);
 
         Application ab = new Application();
         for (Module module : modules) {
@@ -43,6 +47,7 @@ public class TypicalModules {
         }
 
         ab.addTutorial(tutorial);
+        ab.addTutorial(secondTutorial);
 
         for (Student student : students) {
             ab.addStudent(student);

@@ -20,7 +20,7 @@ public class CommandResult {
     private final boolean exit;
 
     /** The application should display attendance */
-    private boolean attendance;
+    private boolean attendancedisplay;
 
     /** The attendance to be displayed by the application */
     private Tutorial tutorialAttendanceToDisplay;
@@ -32,7 +32,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.attendance = false;
+        this.attendancedisplay = false;
     }
 
     /**
@@ -51,7 +51,7 @@ public class CommandResult {
      * Sets the attendance to be displayed
      */
     public void setAttendanceToDisplay(Tutorial tutorialAttendance) {
-        this.attendance = true;
+        this.attendancedisplay = true;
         this.tutorialAttendanceToDisplay = tutorialAttendance;
     }
 
@@ -64,7 +64,7 @@ public class CommandResult {
     }
 
     public boolean isShowAttendance() {
-        return attendance;
+        return attendancedisplay;
     }
 
     public Tutorial getTutorialAttendance() {
@@ -85,12 +85,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && attendancedisplay == otherCommandResult.attendancedisplay;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, attendancedisplay);
     }
 
     @Override

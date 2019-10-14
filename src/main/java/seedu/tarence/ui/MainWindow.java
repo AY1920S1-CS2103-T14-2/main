@@ -190,6 +190,8 @@ public class MainWindow extends UiPart<Stage> {
 
     /**
      * Generates an observable list based on the given tutorial attendane
+     * Solution below adopted from:
+     * {https://stackoverflow.com/questions/41771098/how-to-plot-a-simple-double-matrix-into-tableview-in-javafx}
      */
     private ObservableList<String[]> generateData(Tutorial tutorialAttendance) {
         ObservableList<String[]> list = FXCollections.observableArrayList();
