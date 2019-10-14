@@ -4,6 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Objects;
 
+import seedu.tarence.model.tutorial.Tutorial;
+
 /**
  * Represents the result of a command execution.
  */
@@ -17,6 +19,12 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** The application should display attendance */
+    private boolean attendance;
+
+    /** The attendance to be displayed by the application */
+    private Tutorial tutorialAttendanceToDisplay;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -24,6 +32,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.attendance = false;
     }
 
     /**
@@ -38,12 +47,28 @@ public class CommandResult {
         return feedbackToUser;
     }
 
+    /**
+     * Sets the attendance to be displayed
+     */
+    public void setAttendanceToDisplay(Tutorial tutorialAttendance) {
+        this.attendance = true;
+        this.tutorialAttendanceToDisplay = tutorialAttendance;
+    }
+
     public boolean isShowHelp() {
         return showHelp;
     }
 
     public boolean isExit() {
         return exit;
+    }
+
+    public boolean isShowAttendance() {
+        return attendance;
+    }
+
+    public Tutorial getTutorialAttendance() {
+        return this.tutorialAttendanceToDisplay;
     }
 
     @Override

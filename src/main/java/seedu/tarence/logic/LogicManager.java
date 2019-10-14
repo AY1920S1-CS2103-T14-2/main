@@ -70,7 +70,7 @@ public class LogicManager implements Logic {
             combinedFeedback.append(currCommandResult.getFeedbackToUser() + "\n");
 
             // check for exit/help condition
-            if (currCommandResult.isExit() || currCommandResult.isShowHelp()) {
+            if (currCommandResult.isExit() || currCommandResult.isShowHelp() || currCommandResult.isShowAttendance()) {
                 // this means that previous commands won't be shown if help is inside pending commands
                 return currCommandResult;
             }

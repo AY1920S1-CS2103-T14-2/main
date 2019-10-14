@@ -99,8 +99,10 @@ public class MarkAttendanceCommand extends Command {
         }
 
         String isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent) ? "present" : "absent";
-        return new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
+        CommandResult commandResult = new CommandResult(String.format(MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(), isPresent));
+        commandResult.setAttendanceToDisplay(targetTutorial);
+        return commandResult;
     }
 
     @Override
