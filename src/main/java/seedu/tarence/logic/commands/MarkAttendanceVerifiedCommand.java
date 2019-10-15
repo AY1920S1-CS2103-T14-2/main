@@ -32,22 +32,26 @@ public class MarkAttendanceVerifiedCommand extends Command {
         List<Student> students = targetTutorial.getStudents();
         int nextStudentIndex = students.indexOf(targetStudent) + 1;
         if (nextStudentIndex >= students.size()) {
-            return new CommandResult(
-                String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
-                targetStudent.getName(),
-                isPresent));
+            CommandResult commandResult = new CommandResult(
+                    String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
+                            targetStudent.getName(),
+                            isPresent));
+            commandResult.setAttendanceToDisplay(targetTutorial);
+            return commandResult;
         }
 
         Student nextStudent = targetTutorial.getStudents().get(nextStudentIndex);
         model.storePendingCommand(
                 new MarkAttendanceVerifiedCommand(targetTutorial, week, nextStudent));
-        return new CommandResult(
+        CommandResult commandResult = new CommandResult(
                 String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
                 isPresent)
                 + "\n"
                 + String.format(MarkAttendanceCommand.MESSAGE_CONFIRM_MARK_ATTENDANCE_OF_STUDENT,
                 nextStudent.getName()));
+        commandResult.setAttendanceToDisplay(targetTutorial);
+        return commandResult;
     }
 
     @Override
