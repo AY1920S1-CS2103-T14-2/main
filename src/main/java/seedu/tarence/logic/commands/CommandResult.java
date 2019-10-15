@@ -20,7 +20,7 @@ public class CommandResult {
     private final boolean exit;
 
     /** The application should display attendance */
-    private boolean attendancedisplay;
+    private boolean hasAttendanceDisplay;
 
     /** The attendance to be displayed by the application */
     private Tutorial tutorialAttendanceToDisplay;
@@ -32,7 +32,7 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
-        this.attendancedisplay = false;
+        this.hasAttendanceDisplay = false;
     }
 
     /**
@@ -43,16 +43,18 @@ public class CommandResult {
         this(feedbackToUser, false, false);
     }
 
-    public String getFeedbackToUser() {
-        return feedbackToUser;
+    /**
+     * Constructs a {@code CommandResult} with the specified {@code feedbackToUser} and
+     * a specified {@code Tutorial} and other fields set to their default value.
+     */
+    public CommandResult(String feedbackToUser, Tutorial tutorialAttendanceToDisplay) {
+        this(feedbackToUser, false, false);
+        this.tutorialAttendanceToDisplay = tutorialAttendanceToDisplay;
+        this.hasAttendanceDisplay = true;
     }
 
-    /**
-     * Sets the attendance to be displayed
-     */
-    public void setAttendanceToDisplay(Tutorial tutorialAttendance) {
-        this.attendancedisplay = true;
-        this.tutorialAttendanceToDisplay = tutorialAttendance;
+    public String getFeedbackToUser() {
+        return feedbackToUser;
     }
 
     public boolean isShowHelp() {
@@ -64,7 +66,7 @@ public class CommandResult {
     }
 
     public boolean isShowAttendance() {
-        return attendancedisplay;
+        return hasAttendanceDisplay;
     }
 
     public Tutorial getTutorialAttendance() {
@@ -86,12 +88,12 @@ public class CommandResult {
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
                 && exit == otherCommandResult.exit
-                && attendancedisplay == otherCommandResult.attendancedisplay;
+                && hasAttendanceDisplay == otherCommandResult.hasAttendanceDisplay;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit, attendancedisplay);
+        return Objects.hash(feedbackToUser, showHelp, exit, hasAttendanceDisplay);
     }
 
     @Override

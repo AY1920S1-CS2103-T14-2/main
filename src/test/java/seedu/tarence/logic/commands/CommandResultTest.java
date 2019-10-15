@@ -37,12 +37,13 @@ public class CommandResultTest {
         // different exit value -> returns false
         assertFalse(commandResult.equals(new CommandResult("feedback", false, true)));
 
-        // Same tutorial, everything else same, returns true
+        // different hasAttendanceDisplay value -> returns false
         Tutorial tutorial = new TutorialBuilder().build();
-        commandResult.setAttendanceToDisplay(tutorial);
-        CommandResult commandResult2 = new CommandResult("feedback");
-        commandResult2.setAttendanceToDisplay(tutorial);
-        assertTrue(commandResult.equals(commandResult2));
+        assertFalse(commandResult.equals(new CommandResult("feedback", tutorial)));
+
+        // Same tutorial, everything else same, returns true
+        commandResult = new CommandResult("feedback", tutorial);
+        assertTrue(commandResult.equals(new CommandResult("feedback", tutorial)));
 
         // Show attendance feature is set
         assertTrue(commandResult.isShowAttendance());

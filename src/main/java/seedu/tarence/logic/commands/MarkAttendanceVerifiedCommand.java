@@ -28,12 +28,10 @@ public class MarkAttendanceVerifiedCommand extends Command {
         targetTutorial.setAttendance(week, targetStudent);
         isPresent = targetTutorial.getAttendance().isPresent(week, targetStudent);
 
-        CommandResult commandResult = new CommandResult(
+        return new CommandResult(
                 String.format(MarkAttendanceCommand.MESSAGE_MARK_ATTENDANCE_SUCCESS,
                 targetStudent.getName(),
-                isPresent ? "present" : "absent"));
-        commandResult.setAttendanceToDisplay(targetTutorial);
-        return commandResult;
+                isPresent ? "present" : "absent"), targetTutorial);
     }
 
     @Override
