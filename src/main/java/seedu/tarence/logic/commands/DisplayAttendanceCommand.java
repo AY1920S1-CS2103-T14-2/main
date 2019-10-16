@@ -24,11 +24,11 @@ public class DisplayAttendanceCommand extends Command {
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase()};
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Displays the tutorial attendance identified by the index number used in the displayed tutorial list.\n"
+            + ": Displays the tutorial attendance identified by the tutorial name and module code of the tutorial.\n"
             + "Parameters: \n"
             + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
             + PREFIX_MODULE + "MODULE_CODE \n"
-            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIAL_NAME + "CS2040 " + PREFIX_MODULE + "MODULE_CODE \n";
+            + "Example: " + COMMAND_WORD + " " + PREFIX_TUTORIAL_NAME + "Lab 02 " + PREFIX_MODULE + "CS2040 \n";
 
 
     private final ModCode modCode;
