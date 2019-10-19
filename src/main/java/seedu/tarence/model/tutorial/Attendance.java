@@ -34,14 +34,6 @@ public class Attendance {
         }
     }
 
-    /**
-     * Constructor for creating an Attendance from Json string.
-     * @param attendance
-     */
-    public Attendance(Map<Week, Map<Student, Boolean>> attendance) {
-        this.attendance = attendance;
-    }
-
     public Map<Week, Map<Student, Boolean>> getAttendance() {
 
         return attendance;
@@ -64,7 +56,6 @@ public class Attendance {
      */
     public boolean isPresent(Week week, Student student) throws StudentNotFoundException, WeekNotFoundException {
         if (!this.getWeek(week).containsKey(student)) {
-
             throw new StudentNotFoundException();
         }
 
@@ -145,13 +136,4 @@ public class Attendance {
     public String toString() {
         return attendance.toString();
     }
-
-    public String toSaveString() {
-        return attendance.toString();
-    }
-
-    public Map<Week, Map<Student, Boolean>> getAttendanceMap() {
-        return attendance;
-    }
-
 }
