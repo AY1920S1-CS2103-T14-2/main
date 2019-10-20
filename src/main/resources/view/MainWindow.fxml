@@ -80,13 +80,25 @@
                         </Tab>
                     </tabs>
                 </TabPane>
-                <VBox>
-                    <TableView fx:id="attendancePlaceholder" prefWidth="500" minWidth="500" VBox.vgrow="ALWAYS" >
-                        <padding>
-                            <Insets top="10" right="10" bottom="10" left="10" />
-                        </padding>
-                    </TableView>
-                </VBox>
+                <TabPane fx:id="displayTabPane" minWidth="500.0" maxWidth="500" tabClosingPolicy="UNAVAILABLE" styleClass="pane-with-border">
+                    <tabs>
+                        <Tab fx:id="attendanceTab" closable="false" text="Attendance">
+                            <content>
+                                <VBox>
+                                    <TableView fx:id="attendancePlaceholder" prefWidth="500" minWidth="500" VBox.vgrow="ALWAYS" >
+                                        <padding>
+                                            <Insets top="10" right="10" bottom="10" left="10" />
+                                        </padding>
+                                    </TableView>
+                                </VBox>
+                            </content>
+                    </Tab>
+                        <Tab fx:id="assignmentTab" closable="false" text="Assignment">
+                            <content>
+                            </content>
+                        </Tab>
+                </tabs>
+                </TabPane>
             </SplitPane>
 
                 <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

@@ -63,6 +63,9 @@ public class MainWindow extends UiPart<Stage> {
     private TabPane listTabPane;
 
     @FXML
+    private TabPane displayTabPane;
+
+    @FXML
     private Tab tutorialsTab;
 
     @FXML
@@ -70,6 +73,12 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private Tab modulesTab;
+
+    @FXML
+    private Tab attendanceTab;
+
+    @FXML
+    private Tab assignmentTab;
 
     @FXML
     private TableView attendancePlaceholder;
@@ -287,7 +296,7 @@ public class MainWindow extends UiPart<Stage> {
         String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
                 + "To see all user commands, type \"help\"\n"
                 + "To view a class attendance, type:\n"
-                + " displayAttendance "
+                + "displayAttendance "
                 + PREFIX_TUTORIAL_NAME + "TUTORIAL_NAME "
                 + PREFIX_MODULE + "MODULE_CODE \n";
 
@@ -307,6 +316,42 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Selects the Student Tab
+     */
+    public void handleStudentTabSelected() {
+        if (!studentsTab.isSelected()) {
+            listTabPane.getSelectionModel().select(studentsTab);
+        }
+    }
+
+    /**
+     * Selects the module Tab
+     */
+    public void handleModuleTabSelected() {
+        if (!modulesTab.isSelected()) {
+            listTabPane.getSelectionModel().select(modulesTab);
+        }
+    }
+
+    /**
+     * Selects the tutorial Tab
+     */
+    public void handleTutorialTabSelected() {
+        if (!tutorialsTab.isSelected()) {
+            listTabPane.getSelectionModel().select(tutorialsTab);
+        }
+    }
+
+    /**
+     * Selects the attendance Tab
+     */
+    public void handleAttendanceTabSelected() {
+        if (!attendanceTab.isSelected()) {
+            displayTabPane.getSelectionModel().select(attendanceTab);
+        }
+    }
+
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
     }
@@ -320,6 +365,8 @@ public class MainWindow extends UiPart<Stage> {
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
+
+            logger.info("display Tab " + commandResult.isChangeTabs());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
             showAttendance(commandResult.getTutorialAttendance());
 
@@ -329,6 +376,23 @@ public class MainWindow extends UiPart<Stage> {
 
             if (commandResult.isExit()) {
                 handleExit();
+            }
+
+            if (commandResult.isShowAttendance()) {
+                handleAttendanceTabSelected();
+            }
+
+            if (commandResult.isChangeTabs()) {
+                switch(commandResult.getTabToDisplay()) {
+                case MODULES:
+                    handleModuleTabSelected();
+                    break;
+                case STUDENTS:
+                    handleStudentTabSelected();
+                    break;
+                default:
+                    handleTutorialTabSelected();
+                }
             }
 
             return commandResult;
