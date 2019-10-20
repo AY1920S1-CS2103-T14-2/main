@@ -18,6 +18,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SplitPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputControl;
@@ -53,8 +55,21 @@ public class MainWindow extends UiPart<Stage> {
     private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
     private StudentListPanel studentListPanel;
+    private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private TabPane listTabPane;
+
+    @FXML
+    private Tab tutorialsTab;
+
+    @FXML
+    private Tab studentsTab;
+
+    @FXML
+    private Tab modulesTab;
 
     @FXML
     private TableView attendancePlaceholder;
@@ -76,6 +91,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane studentListPanelPlaceholder;
+
+    @FXML
+    private StackPane moduleListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -144,6 +162,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+
+        moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
+        moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
 
         studentListPanel = new StudentListPanel(logic.getFilteredStudentList());
         studentListPanelPlaceholder.getChildren().add(studentListPanel.getRoot());
