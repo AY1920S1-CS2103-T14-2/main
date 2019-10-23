@@ -22,7 +22,44 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#autocorrect-feature">3.1. Autocorrect feature</a></li>
+<li><a href="#add-student-feature">3.1. Add Student feature</a></li>
+<li><a href="#edit-feature">3.2. Edit feature</a></li>
+<li><a href="#autocorrect-feature">3.3. Autocorrect feature</a></li>
+<li><a href="#autocomplete-feature">3.4. Autocomplete feature</a></li>
+<li><a href="#list-feature">3.5. list feature</a></li>
+<li><a href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></li>
+<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
+</ul>
+</li>
+<li><a href="#documentation">4. Documentation</a></li>
+<li><a href="#testing">5. Testing</a></li>
+<li><a href="#dev-ops">6. Dev Ops</a></li>
+<li><a href="#product-scope">Appendix A: Product Scope</a></li>
+<li><a href="#user-stories">Appendix B: User Stories</a></li>
+<li><a href="#use-cases">Appendix C: Use Cases</a>
+<ul class="sectlevel2">
+<li><a href="#use-case-adding-and-viewing-assignment-score-to-students">C.1. Use case: Adding and viewing assignment score to students</a></li>
+</ul>
+</li>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a>
+<ul class="sectlevel2">
+<li><a href="#business-domain-rules">D.1. Business/Domain Rules:</a></li>
+<li><a href="#constraints">D.2. Constraints:</a></li>
+<li><a href="#technical-requirements">D.3. Technical Requirements:</a></li>
+<li><a href="#performance-requirements">D.4. Performance Requirements:</a></li>
+<li><a href="#quality-requirements">D.5. Quality Requirements:</a></li>
+<li><a href="#notes-about-project-scope">D.6. Notes about Project Scope:</a></li>
+</ul>
+</li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<ul class="sectlevel2">
+<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-person">G.2. Deleting a person</a></li>
+<li><a href="#saving-data">G.3. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -311,12 +348,153 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="autocorrect-feature"><a class="link" href="#autocorrect-feature">3.1. Autocorrect feature</a></h3>
+<h3 id="add-student-feature"><a class="link" href="#add-student-feature">3.1. Add Student feature</a></h3>
+<div class="paragraph">
+<p>The <code>AddStudent</code> command lets T.A.rence add a student into the specified module and tutorial.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">3.1.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>AddStudent</code> command must include the name, email, tutorial and module. The tutorial and module can be indicated by the index of the tutorial. Optionally, the user
+can also choose to indicate the student&#8217;s matric number and nusnetid.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>AddStudent</code> command will also automatically be updated within the application&#8217;s storage system and the new student will be reflected in the application&#8217;s GUI.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below is an activity diagram shows the process of invoking the <code>AddStudent</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddStudentCommandActivityDiagram.png" alt="AddStudentCommandActivityDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interaction with the Logic components as described above.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/AddStudentCommandSequenceDiagram.png" alt="AddStudentCommandSequenceDiagram">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="edit-feature"><a class="link" href="#edit-feature">3.2. Edit feature</a></h3>
+<div class="paragraph">
+<p>The <code>edit</code> feature aims to help users update student details in our application.
+When there are changes to be made for a student (e.g. updating their email or adding a matric number),
+users will want to be able to update their student&#8217;s details easily without going through the hassle of deleting and adding new student information.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-3"><a class="link" href="#implementation-3">3.2.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>edit</code> command must include one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Name</p>
+</li>
+<li>
+<p>Email</p>
+</li>
+<li>
+<p>Matric number</p>
+</li>
+<li>
+<p>NusnetID</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The user is not allowed to change the tutorial or module that the student is in.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>edit</code> command will also automatically be updated within the application&#8217;s storage system and the new student&#8217;s details will be reflected in the application&#8217;s GUI.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interaction with the Logic components as described above.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/EditCommandSequenceDiagram.png" alt="EditCommandSequenceDiagram">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-edit-executes"><a class="link" href="#aspect-how-edit-executes">Aspect: How edit executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Deletes old copy of and adds new modified copy</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: May have performance issues in terms of time complexity.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Modify the existing version of the student directly.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will use less memory</p>
+</li>
+<li>
+<p>Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="autocorrect-feature"><a class="link" href="#autocorrect-feature">3.3. Autocorrect feature</a></h3>
 <div class="paragraph">
 <p>Autocorrect lets T.A.rence find similar commands to the user&#8217;s input, allowing it to catch minor typing mistakes.</p>
 </div>
 <div class="sect3">
-<h4 id="implementation-2"><a class="link" href="#implementation-2">3.1.1. Implementation</a></h4>
+<h4 id="implementation-4"><a class="link" href="#implementation-4">3.3.1. Implementation</a></h4>
 <div class="paragraph">
 <p>Autocorrect is implemented at the <code>Command</code> level: when <code>Command</code> objects are executed, they attempt to find their data values from the application&#8217;s storage. If these values are not found, they search for lexically similar alternatives, and construct new `Command`s with these suggested values. The user is then prompted to choose one of these suggestions via a single numerical input.</p>
 </div>
@@ -350,8 +528,6 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <img src="images/AutocorrectSequence.png" alt="AutocorrectSequence">
 </div>
 </div>
-<div class="exampleblock">
-<div class="content">
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -364,15 +540,15 @@ The lifelines for <code>SelectSuggestionCommand</code> and <code>AddStudentComma
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Autocomplete feature</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="autocomplete-feature"><a class="link" href="#autocomplete-feature">3.4. Autocomplete feature</a></h3>
 <div class="paragraph">
 <p>Autoomplete provides an autofill feature similar to that found in most common CLIs.</p>
 </div>
-<div class="paragraph">
-<p>==== Implementation</p>
-</div>
+<div class="sect3">
+<h4 id="implementation-5"><a class="link" href="#implementation-5">3.4.1. Implementation</a></h4>
 <div class="paragraph">
 <p>Autocomplete is implemented at the <code>Parser</code> level. When the user presses the "TAB" key, <code>AutoCompleteHandler</code>  handles the processing of the input, as opposed to <code>ApplicationParser</code> when the "ENTER" key is pressed.</p>
 </div>
@@ -387,10 +563,53 @@ The lifelines for <code>SelectSuggestionCommand</code> and <code>AddStudentComma
 <img src="images/AutocompleteActivity.png" alt="AutocompleteActivity">
 </div>
 </div>
-<div class="paragraph">
-<p>=== [Proposed] Undo/Redo feature
-==== Proposed Implementation</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="list-feature"><a class="link" href="#list-feature">3.5. list feature</a></h3>
+<div class="paragraph">
+<p>The <code>list</code> command lets T.A.rence display all students or students from a specific tutorial.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-6"><a class="link" href="#implementation-6">3.5.1. Implementation</a></h4>
+<div class="paragraph">
+<p>The <code>list</code> command can include no additional input, or the index of the tutorial. When the user executes the <code>list</code> command, the following steps are taken by the application:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The CommandParser determines the format of user input. If not input is provided, all students are displayed.</p>
+</li>
+<li>
+<p>When the <code>list</code> class is invoked, it will perform the following actions before displaying the output to the user:</p>
+</li>
+<li>
+<p>Obtains a list of tutorials from the model and filters through the students which belong to the indicated tutorial of choice.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below is an activity diagram shows the process of invoking the <code>list</code> command.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ListCommandActivityDiagram.png" alt="ListCommandActivityDiagram">
+</div>
+</div>
+<div class="paragraph">
+<p>The sequence diagram below shows the interaction with the Logic components as described above.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ListCommandSequenceDiagram.png" alt="ListCommandSequenceDiagram">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-undo-redo-feature"><a class="link" href="#proposed-undo-redo-feature">3.6. [Proposed] Undo/Redo feature</a></h3>
+<div class="sect3">
+<h4 id="proposed-implementation"><a class="link" href="#proposed-implementation">3.6.1. Proposed Implementation</a></h4>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by <code>VersionedAddressBook</code>.
 It extends <code>AddressBook</code> with an undo/redo history, stored internally as an <code>addressBookStateList</code> and <code>currentStatePointer</code>.
@@ -530,12 +749,11 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <img src="images/CommitActivityDiagram.png" alt="CommitActivityDiagram">
 </div>
 </div>
-<div class="paragraph">
-<p>==== Design Considerations</p>
 </div>
-<div class="paragraph">
-<p>===== Aspect: How undo &amp; redo executes</p>
-</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.6.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -566,9 +784,9 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>===== Aspect: Data structure to support the undo/redo commands</p>
 </div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -599,22 +817,24 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>=== [Proposed] Data Encryption</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
-<div class="paragraph">
-<p>=== Logging</p>
 </div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">[Implementation-Configuration]</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -643,33 +863,42 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </li>
 </ul>
 </div>
-<div id="Implementation-Configuration" class="paragraph">
-<p>=== Configuration</p>
 </div>
+<div class="sect2">
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
-<div class="paragraph">
-<p>== Documentation</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="documentation"><a class="link" href="#documentation">4. Documentation</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="Documentation.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Testing</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="testing"><a class="link" href="#testing">5. Testing</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="Testing.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Dev Ops</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="dev-ops"><a class="link" href="#dev-ops">6. Dev Ops</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Refer to the guide <a href="DevOps.html">here</a>.</p>
 </div>
-<div class="paragraph">
-<p>== Product Scope</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="product-scope"><a class="link" href="#product-scope">Appendix A: Product Scope</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Target user profile</strong>:</p>
 </div>
@@ -695,9 +924,11 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="paragraph">
 <p><strong>Value proposition</strong>: manage TA-related tasks faster than a typical mouse/GUI driven app</p>
 </div>
-<div class="paragraph">
-<p>== User Stories</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix B: User Stories</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
 </div>
@@ -789,9 +1020,11 @@ previous semesters taught</p></td>
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
 </div>
-<div class="paragraph">
-<p>== Use Cases</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <code>T.A.rence application</code> and the <strong>Actor</strong> is the <code>TA user</code>, unless specified otherwise)</p>
 </div>
@@ -1327,9 +1560,10 @@ for that week</p>
 </li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="use-case-adding-and-viewing-assignment-score-to-students"><a class="link" href="#use-case-adding-and-viewing-assignment-score-to-students">C.1. Use case: Adding and viewing assignment score to students</a></h3>
 <div class="paragraph">
-<p>=== Use case: Adding and viewing assignment score to students
-<strong>Preconditions</strong></p>
+<p><strong>Preconditions</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1386,46 +1620,97 @@ for that week</p>
 <div class="paragraph">
 <p><em>{More to be added soon. Stay tuned!}</em></p>
 </div>
-<div class="paragraph">
-<p>== Non Functional Requirements</p>
 </div>
-<div class="paragraph">
-<p>=== Business/Domain Rules:
-. System should be able to handle multiple modules and tutorials
-. Number of module and tutorial slots created should be of reasonable amount (&lt; 10)
-. The application’s functionalities should be easily testable.</p>
 </div>
-<div class="paragraph">
-<p>=== Constraints:
-. System should be wholly usable by <a href="#CLI">C.L.I</a>. (No <a href="#GUI">G.U.I</a> -only functionality)
-. The application should work without requiring an Internet connection.</p>
 </div>
-<div class="paragraph">
-<p>=== Technical Requirements:
-. Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>11</code> or above installed.</p>
+<div class="sect1">
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="business-domain-rules"><a class="link" href="#business-domain-rules">D.1. Business/Domain Rules:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>System should be able to handle multiple modules and tutorials</p>
+</li>
+<li>
+<p>Number of module and tutorial slots created should be of reasonable amount (&lt; 10)</p>
+</li>
+<li>
+<p>The application’s functionalities should be easily testable.</p>
+</li>
+</ol>
 </div>
-<div class="paragraph">
-<p>=== Performance Requirements:
-. System should be able to hold up to 100 students without a noticeable sluggishness in performance for typical usage.</p>
 </div>
-<div class="paragraph">
-<p>=== Quality Requirements:
-. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
-should be able to accomplish most of the tasks faster using commands than using the mouse.
-. The application should work even if the user enters partial commands/data and data in
-different formats, or omits certain command prefixes.
-. Product should be usable by someone who just became a Teaching Assistant.</p>
+<div class="sect2">
+<h3 id="constraints"><a class="link" href="#constraints">D.2. Constraints:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>System should be wholly usable by <a href="#CLI">C.L.I</a>. (No <a href="#GUI">G.U.I</a> -only functionality)</p>
+</li>
+<li>
+<p>The application should work without requiring an Internet connection.</p>
+</li>
+</ol>
 </div>
-<div class="paragraph">
-<p>=== Notes about Project Scope:
-. System does not need to handle exporting or importing of data from other programs.</p>
+</div>
+<div class="sect2">
+<h3 id="technical-requirements"><a class="link" href="#technical-requirements">D.3. Technical Requirements:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Should work on any <a href="#mainstream-os">mainstream OS</a> as long as it has Java <code>11</code> or above installed.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="performance-requirements"><a class="link" href="#performance-requirements">D.4. Performance Requirements:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>System should be able to hold up to 100 students without a noticeable sluggishness in performance for typical usage.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="quality-requirements"><a class="link" href="#quality-requirements">D.5. Quality Requirements:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
+should be able to accomplish most of the tasks faster using commands than using the mouse.</p>
+</li>
+<li>
+<p>The application should work even if the user enters partial commands/data and data in
+different formats, or omits certain command prefixes.</p>
+</li>
+<li>
+<p>Product should be usable by someone who just became a Teaching Assistant.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="notes-about-project-scope"><a class="link" href="#notes-about-project-scope">D.6. Notes about Project Scope:</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>System does not need to handle exporting or importing of data from other programs.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p><em>{More to be added. Coming to stores near you!}</em></p>
 </div>
-<div class="paragraph">
-<p>== Glossary</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<div class="sectionbody">
 <div class="dlist">
 <dl>
 <dt class="hdlist1"><a id="mainstream-os"></a> Mainstream OS</dt>
@@ -1458,9 +1743,11 @@ different formats, or omits certain command prefixes.
 </dd>
 </dl>
 </div>
-<div class="paragraph">
-<p>== Product Survey</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong></p>
 </div>
@@ -1493,9 +1780,11 @@ different formats, or omits certain command prefixes.
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>== Instructions for Manual Testing</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
 </div>
@@ -1511,9 +1800,8 @@ These instructions only provide a starting point for testers to work on; testers
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>=== Launch and Shutdown</p>
-</div>
+<div class="sect2">
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1549,9 +1837,9 @@ Expected: The most recent window size and location is retained.</p>
 <div class="paragraph">
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
-<div class="paragraph">
-<p>=== Deleting a person</p>
 </div>
+<div class="sect2">
+<h3 id="deleting-a-person"><a class="link" href="#deleting-a-person">G.2. Deleting a person</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1581,9 +1869,9 @@ Expected: Similar to previous.</p>
 <div class="paragraph">
 <p><em>{ more test cases &#8230;&#8203; }</em></p>
 </div>
-<div class="paragraph">
-<p>=== Saving data</p>
 </div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">G.3. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1603,7 +1891,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 12:11:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-10-23 12:26:08 UTC</div></div></div></body></html>
