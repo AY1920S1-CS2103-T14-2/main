@@ -153,6 +153,29 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::Add Student Feature[]
+=== Add Student feature
+
+The `AddStudent` command lets T.A.rence add a student into the specified module and tutorial.
+
+==== Implementation
+
+The `AddStudent` command must include the name, email, tutorial and module. The tutorial and module can be indicated by the index of the tutorial. Optionally, the user
+can also choose to indicate the student's matric number and nusnetid.
+
+[NOTE]
+If the user uses both the indexing and full input format, the command will throw an error due to ambiguity.
+
+* The `AddStudent` command will also automatically be updated within the application's storage system and the new student will be reflected in the application's GUI.
+
+Below is an activity diagram shows the process of invoking the `AddStudent` command.
+
+image::AddStudentCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::AddStudentCommandSequenceDiagram.png[]
+
 // tag::autocorrect[]
 === Autocorrect feature
 
