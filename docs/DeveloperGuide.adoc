@@ -178,6 +178,27 @@ When a valid option is selected, the `execute()` method in `SelectSuggestionComm
 
 image::AutocorrectSequence.png[]
 
+// tag::list[]
+=== list feature
+
+The `list` command lets T.A.rence display all students or students from a specific tutorial.
+
+==== Implementation
+
+The `list` command can include no additional input, or the index of the tutorial. When the user executes the `list` command, the following steps are taken by the application:
+
+* The CommandParser determines the format of user input. If not input is provided, all students are displayed.
+* When the `list` class is invoked, it will perform the following actions before displaying the output to the user:
+* Obtains a list of tutorials from the model and filters through the students which belong to the indicated tutorial of choice.
+
+Below is an activity diagram shows the process of invoking the `list` command.
+
+image::ListCommandActivityDiagram.png[]
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::ListCommandSequenceDiagram.png[]
+
 // tag::undoredo[]
 === [Proposed] Undo/Redo feature
 ==== Proposed Implementation
