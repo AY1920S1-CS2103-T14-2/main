@@ -176,6 +176,31 @@ The sequence diagram below shows the interaction with the Logic components as de
 
 image::AddStudentCommandSequenceDiagram.png[]
 
+// tag::Edit Feature[]
+=== Edit feature
+
+The `edit` feature aims to help users update student details in our application.
+When there are changes to be made for a student (e.g. updating their email or adding a matric number),
+users will want to be able to update their student's details easily without going through the hassle of deleting and adding new student information.
+
+==== Implementation
+
+The `edit` command must include one of the following:
+
+* Name
+* Email
+* Matric number
+* NusnetID
+
+[NOTE]
+The user is not allowed to change the tutorial or module that the student is in.
+
+* The `edit` command will also automatically be updated within the application's storage system and the new student's details will be reflected in the application's GUI.
+
+The sequence diagram below shows the interaction with the Logic components as described above.
+
+image::EditCommandSequenceDiagram.png[]
+
 // tag::autocorrect[]
 === Autocorrect feature
 
