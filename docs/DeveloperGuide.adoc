@@ -201,6 +201,17 @@ The sequence diagram below shows the interaction with the Logic components as de
 
 image::EditCommandSequenceDiagram.png[]
 
+==== Design Considerations
+
+===== Aspect: How edit executes
+
+* **Alternative 1 (current choice):** Deletes old copy of and adds new modified copy
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of time complexity.
+* **Alternative 2:** Modify the existing version of the student directly.
+** Pros: Will use less memory
+** Cons: Will have to go through each of the student/tutorial/module lists and update them. Which involves many layers of looping (higher chance of regressions).
+
 // tag::autocorrect[]
 === Autocorrect feature
 
