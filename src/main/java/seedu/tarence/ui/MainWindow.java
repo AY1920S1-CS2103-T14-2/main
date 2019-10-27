@@ -54,6 +54,9 @@ public class MainWindow extends UiPart<Stage> {
     // Independent Ui parts residing in this Ui container
     private TutorialListPanel tutorialListPanel;
     private PersonListPanel personListPanel;
+    private DefaultAssignmentPanel defaultAssignmentPanel;
+    private AssignmentTablePanel assignmentTablePanel;
+    private AssignmentStatisticsPanel assignmentStatisticsPanel;
     private StudentListPanel studentListPanel;
     private ModuleListPanel moduleListPanel;
     private ResultDisplay resultDisplay;
@@ -104,6 +107,9 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane moduleListPanelPlaceholder;
+
+    @FXML
+    private StackPane assignmentPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -172,6 +178,9 @@ public class MainWindow extends UiPart<Stage> {
     void fillInnerParts() {
         //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        // Set default stackpane
+        defaultAssignmentPanel = new DefaultAssignmentPanel();
+        assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
         moduleListPanelPlaceholder.getChildren().add(moduleListPanel.getRoot());
@@ -215,7 +224,7 @@ public class MainWindow extends UiPart<Stage> {
             ObservableList<String[]> observableAttendance = generateData(tutorialAttendance);
             attendancePlaceholder.setItems(observableAttendance);
             attendancePlaceholder.getColumns().setAll(createColumns());
-            logger.info("successfully displayed:)");
+            logger.info("successfully displayed attendance:)");
         } catch (NullPointerException e) {
             attendancePlaceholder.getItems().clear();
         }
