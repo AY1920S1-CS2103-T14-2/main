@@ -15,7 +15,8 @@
 <?import javafx.scene.control.TableView?>
 
 <?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.Tab?>F
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.Label?>
 <fx:root minHeight="700" minWidth="840" onCloseRequest="#handleExit" title="T.A.rence" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
     <icons>
         <Image url="@/images/TArenceicon.png" />
