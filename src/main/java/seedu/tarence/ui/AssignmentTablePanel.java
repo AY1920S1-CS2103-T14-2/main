@@ -110,7 +110,11 @@ public class AssignmentTablePanel extends UiPart<Region> {
                             if (item >= upperPercentile) {
                                 this.setTextFill(Color.rgb(0, 255, 0));
                             }
-                            setText(item.toString());
+                            if (item == -1) {
+                                setText("");
+                            } else {
+                                setText(item.toString());
+                            }
                         }
                     }
                 };

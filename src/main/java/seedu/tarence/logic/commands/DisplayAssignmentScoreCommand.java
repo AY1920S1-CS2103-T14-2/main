@@ -2,9 +2,9 @@ package seedu.tarence.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
-import static seedu.tarence.logic.parser.CliSyntax.PREFIX_ASSIGNMENT_NAME;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.tarence.logic.parser.CliSyntax.PREFIX_INDEX;
+import static seedu.tarence.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.List;
 import java.util.Map;
@@ -22,8 +22,9 @@ import seedu.tarence.model.tutorial.Tutorial;
  */
 public class DisplayAssignmentScoreCommand extends Command {
     public static final String COMMAND_WORD = "displayAssign";
-
     public static final String MESSAGE_SUCCESS = "Assignment is displayed!";
+    public static final String[] TABLE_SYNONYMS = {"t", "table", "tab"};
+    public static final String[] GRAPH_SYNONYMS = {"g", "graph"};
 
     private static final String[] COMMAND_SYNONYMS = {COMMAND_WORD.toLowerCase(),
         "displayassignmentscore", "displayscore", "displayassignment"};
@@ -32,10 +33,10 @@ public class DisplayAssignmentScoreCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Displays the tutorial assignment identified by the tutorial name, module code and assignment name.\n"
             + PREFIX_INDEX + "TUTORIAL_INDEX\n"
-            + PREFIX_ASSIGNMENT_NAME + "ASSIGNMENT_NAME\n"
+            + PREFIX_NAME + "ASSIGNMENT_NAME\n"
             + PREFIX_FORMAT + "DISPLAY_FORMAT(t for table and g for graph)\n"
             + "Example: " + COMMAND_WORD + " " + PREFIX_INDEX + "1"
-            + PREFIX_ASSIGNMENT_NAME + "Lab 1" + PREFIX_FORMAT + "t";
+            + PREFIX_NAME + "Lab 1" + PREFIX_FORMAT + "t";
 
     private Index tutorialIndex;
     private String assignmentName;

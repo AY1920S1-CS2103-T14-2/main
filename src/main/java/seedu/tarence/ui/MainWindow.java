@@ -465,14 +465,17 @@ public class MainWindow extends UiPart<Stage> {
                                    DisplayFormat displayFormat) {
         assignmentPanelPlaceholder.getChildren().clear();
         switch(displayFormat) {
-        case GRAPH:
+        case TABLE:
             assignmentTablePanel = new AssignmentTablePanel(studentScores);
             assignmentPanelPlaceholder.getChildren().add(assignmentTablePanel.getPane());
             break;
-        case TABLE:
+        case GRAPH:
         default:
             assignmentStatisticsPanel = new AssignmentStatisticsPanel(studentScores, assignment);
             assignmentPanelPlaceholder.getChildren().add(assignmentStatisticsPanel.getPane());
+        }
+        if (!assignmentTab.isSelected()) {
+            displayTabPane.getSelectionModel().select(assignmentTab);
         }
     }
 }

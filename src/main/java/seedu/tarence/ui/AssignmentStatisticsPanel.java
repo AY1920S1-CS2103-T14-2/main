@@ -2,13 +2,13 @@ package seedu.tarence.ui;
 
 import static seedu.tarence.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import javafx.fxml.FXML;
 import javafx.scene.chart.BarChart;
@@ -57,12 +57,16 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
         requireAllNonNull(resultInfo, assignment);
         this.resultInfo = resultInfo;
         this.assignment = assignment;
-        this.scores = new ArrayList<Integer>(resultInfo.values());
-        Collections.sort(scores);
-        setStatistics(assignment);
-        createHistogram();
+        scores = getScores(resultInfo);
         cardPane = new VBox();
-        cardPane.getChildren().addAll(scoreBarChart, maxScore, median, upperPercentile, lowerPercentile);
+        if (!scores.isEmpty()) {
+            Collections.sort(scores);
+            setStatistics(assignment);
+            createHistogram();
+            cardPane.getChildren().addAll(scoreBarChart, maxScore, median, upperPercentile, lowerPercentile);
+        } else {
+            cardPane.getChildren().add(getEmptyLabel());
+        }
     }
 
     /**
@@ -131,5 +135,14 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
                 distribution.put(scores.get(i), 1);
             }
         }
+    }
+
+    private List<Integer> getScores(Map<Student, Integer> resultInfo) {
+        return resultInfo.values().stream().filter(i -> i != -1).collect(Collectors.toList());
+    }
+
+    private Label getEmptyLabel() {
+        String emptyListMessage = "Sorry :( there are no scores to display";
+        return new Label(emptyListMessage);
     }
 }
