@@ -29,6 +29,7 @@ Class "{abstract}\nCommand" as Command
 
 Interface Logic <<Interface>>
 Class LogicManager
+Class Finder
 }
 
 package Model{
@@ -63,6 +64,11 @@ AutocompleteHandler ..> PartialInputParser
 AutocompleteHandler ..> Model
 PartialInputParser ..> Prefix
 PartialInputParser ..> PartialInput : creates >
+
+PartialInputParser .left.> Finder
+XYZCommand ..> Finder
+
+Finder -->"1" Model
 
 LogicManager --> Model
 Command ..> Model

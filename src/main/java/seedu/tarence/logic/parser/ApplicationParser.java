@@ -23,6 +23,7 @@ import seedu.tarence.logic.commands.ExitCommand;
 import seedu.tarence.logic.commands.ExportAttendanceCommand;
 import seedu.tarence.logic.commands.FindCommand;
 import seedu.tarence.logic.commands.HelpCommand;
+import seedu.tarence.logic.commands.ImportCommand;
 import seedu.tarence.logic.commands.ListCommand;
 import seedu.tarence.logic.commands.MarkAttendanceCommand;
 import seedu.tarence.logic.commands.SelectSuggestionCommand;
@@ -123,6 +124,8 @@ public class ApplicationParser {
             return new ChangeTabCommand(arguments);
         } else if (DisplayAssignmentScoreCommand.isMatchingCommandWord(commandWord)) {
             return new DisplayAssignmentScoreCommandParser().parse(arguments);
+        } else if (ImportCommand.isMatchingCommandWord(commandWord)) {
+            return new ImportCommandParser().parse(arguments);
         } else {
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
