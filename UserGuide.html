@@ -1505,6 +1505,38 @@ This will be in the format:</p>
 <p>Format:
 <code>undo</code> u/[NUMBER_OF_ACTIONS]</p>
 </div>
+<div class="paragraph">
+<p>Undoes any state-altering command from the application.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>undo u/NUMBER_OF_STATES_TO_UNDO</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="paragraph">
+<p><code>undo u/2</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Resets the application state to the previous state.</p>
+</li>
+<li>
+<p>Undo can only be applied to states that are present in that particular session (from application start-up)</p>
+</li>
+<li>
+<p>The <code>NUMBER_OF_STATES_TO_UNDO</code> refers to the previous number of states to undo in that session</p>
+</li>
+<li>
+<p>The <code>NUMBER_OF_STATES_TO_UNDO</code> <strong>must be a positive integer</strong>; 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="clearing-all-entries-code-clear-code-coming-in-v2-0"><a class="link" href="#clearing-all-entries-code-clear-code-coming-in-v2-0">3.26. Clearing all entries : <code>clear</code> [coming in v2.0]</a></h3>
@@ -1645,4 +1677,4 @@ e.g. <code>add m/CS1010</code></p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-03 08:58:12 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-04 06:03:57 UTC</div></div></div></body></html>
