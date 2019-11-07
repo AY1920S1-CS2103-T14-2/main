@@ -34,17 +34,19 @@ public class AssignmentTablePanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(AssignmentTablePanel.class);
     private long lowerPercentile;
     private long upperPercentile;
+    private boolean isDefault;
 
     @FXML
-    private Pane defaultPanel;
+    private Pane pane;
 
     @FXML
     private TableView assignmentPlaceholder;
 
     public AssignmentTablePanel() {
         super(FXML);
-        this.defaultPanel = new StackPane();
-        defaultPanel.getChildren().add(assignmentPlaceholder);
+        this.pane = new StackPane();
+        setDefaultPlaceHolderLabel();
+        pane.getChildren().add(assignmentPlaceholder);
     }
 
     /**
@@ -57,26 +59,28 @@ public class AssignmentTablePanel extends UiPart<Region> {
             setStatistics(scores);
             setAssignmentTable(scores);
             assignmentPlaceholder.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            this.isDefault = false;
         } else {
             setDefaultPlaceHolderLabel();
         }
-        defaultPanel.getChildren().clear();
-        defaultPanel.getChildren().add(assignmentPlaceholder);
+        pane.getChildren().clear();
+        pane.getChildren().add(assignmentPlaceholder);
     }
 
     /**
      * @return Pane with attendance table to display.
      */
     public Pane getPane() {
-        return this.defaultPanel;
+        return this.pane;
     }
 
     /**
      * sets default placeholder. To be used only during exceptions.
      */
-    private void setDefaultPlaceHolderLabel() {
-        String defaultMessage = "No scores have been set for this\n"
-                + "assignment yet :(";
+    public void setDefaultPlaceHolderLabel() {
+        assignmentPlaceholder.getColumns().clear();
+        this.isDefault = true;
+        String defaultMessage = "Sorry :( there are no scores to display";
 
         Label placeholder = new Label(defaultMessage);
         assignmentPlaceholder.setPlaceholder(placeholder);
@@ -104,6 +108,7 @@ public class AssignmentTablePanel extends UiPart<Region> {
                 return new SimpleIntegerProperty(Integer.valueOf(p.getValue().getValue())).asObject();
             }
         });
+
         scores.setCellFactory(new Callback<TableColumn<Map.Entry<Student, Integer>, Integer>,
                 TableCell<Map.Entry<Student, Integer>, Integer>>() {
             public TableCell call(TableColumn param) {
@@ -112,21 +117,10 @@ public class AssignmentTablePanel extends UiPart<Region> {
                     public void updateItem(Integer item, boolean empty) {
                         super.updateItem(item, empty);
                         if (!isEmpty()) {
+                            // Set to default colour value
                             this.setTextFill(Color.WHITE);
                             setText(item.toString());
-                            if (item == -1) {
-                                this.setStyle("-fx-background-color: " + "#606060FF");
-                                setText("Score is not set");
-                            } else if (item >= upperPercentile) {
-                                this.setStyle("-fx-background-color: " + "#2BAE66FF");
-                                setText(item.toString() + " (75th Percentile)");
-                            } else if (item <= lowerPercentile) {
-                                this.setStyle("-fx-background-color: " + "#E94B3CFF");
-                                setText(item.toString() + " (25th Percentile)");
-                            } else {
-                                this.setStyle("-fx-background-color: " + "#ffa333");
-                                setText(item.toString() + " (Average)");
-                            }
+                            setItemStyle(this, item);
                         }
                     }
                 };
@@ -137,6 +131,25 @@ public class AssignmentTablePanel extends UiPart<Region> {
                 FXCollections.observableArrayList(namesAndScores.entrySet());
         assignmentPlaceholder = new TableView<Map.Entry<Student, Integer>>(items);
         assignmentPlaceholder.getColumns().setAll(names, scores);
+    }
+
+    /**
+     * Sets the colour and text of the tablecell based on the item score.
+     */
+    private void setItemStyle(TableCell tableCell, Integer item) {
+        if (item == -1) {
+            tableCell.setStyle("-fx-background-color: " + "#606060FF");
+            tableCell.setText("Score is not set");
+        } else if (item >= upperPercentile) {
+            tableCell.setStyle("-fx-background-color: " + "#2BAE66FF");
+            tableCell.setText(item.toString() + " (75th Percentile)");
+        } else if (item <= lowerPercentile) {
+            tableCell.setStyle("-fx-background-color: " + "#E94B3CFF");
+            tableCell.setText(item.toString() + " (25th Percentile)");
+        } else {
+            tableCell.setStyle("-fx-background-color: " + "#ffa333");
+            tableCell.setText(item.toString() + " (Average)");
+        }
     }
 
     /**
@@ -171,5 +184,12 @@ public class AssignmentTablePanel extends UiPart<Region> {
         long numScores = scores.values().stream().filter(i -> i != -1).count();
         logger.info("Number of students in assignment: " + numScores);
         return (numScores == 0);
+    }
+
+    /**
+     * Returns true is the default view is being displayed.
+     */
+    public boolean isDefaultView() {
+        return this.isDefault;
     }
 }
