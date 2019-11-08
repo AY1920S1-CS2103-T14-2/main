@@ -70,10 +70,10 @@ public class Student extends Person {
         }
 
         boolean hasSameEmail = otherStudent.getEmail().equals(getEmail());
-        boolean hasSameMatNo = (getMatricNum().isPresent() && otherStudent.getMatricNum().equals(getMatricNum()))
-                || (getMatricNum().isEmpty() && otherStudent.getMatricNum().isEmpty()) ;
-        boolean hasSameNusId = getNusnetId().isPresent() && otherStudent.getNusnetId().equals(getNusnetId())
-                || (getNusnetId().isEmpty() && otherStudent.getNusnetId().isEmpty());
+        boolean hasSameMatNo = (getMatricNum().isPresent() && otherStudent.getMatricNum().equals(getMatricNum())
+                || (getMatricNum().isEmpty() && otherStudent.getMatricNum().isEmpty()));
+        boolean hasSameNusId = (getNusnetId().isPresent() && otherStudent.getNusnetId().equals(getNusnetId())
+                || (getNusnetId().isEmpty() && otherStudent.getNusnetId().isEmpty()));
         boolean hasSameClass = otherStudent.getTutName().equals(getTutName())
                 && otherStudent.getModCode().equals(getModCode());
 
@@ -81,6 +81,58 @@ public class Student extends Person {
                 || (hasSameEmail && (!hasSameMatNo || !hasSameNusId))
                 || (hasSameMatNo && !hasSameEmail)
                 || (hasSameNusId && !hasSameEmail));
+    }
+
+    /**
+     * Returns true if both students are duplicates. Used for error detection.
+     * Todo: Refactor
+     */
+    @Override
+    public boolean isDuplicatePerson(Person otherPerson) {
+
+        Student otherStudent = (Student) otherPerson;
+        if (otherStudent == this) {
+            return true;
+        } else if (otherStudent == null) {
+            return false;
+        }
+
+        return isSamePerson(otherPerson)
+                && getNusnetId().isPresent()
+                && getMatricNum().isPresent();
+    }
+
+    /**
+     * Returns true if both students are valid duplicates of each other.
+     * A duplicate is valid iff all their unique fields are either equal or null where appropriate.
+     * For example, two students cannot have the same MatNo but different NusIds.
+     */
+    public boolean isValidDuplicate(Student otherStudent) {
+        return (getMatricNum().equals(otherStudent.getMatricNum())
+                    || (getMatricNum().isEmpty() && otherStudent.getMatricNum().isEmpty())
+                && (getNusnetId().equals(otherStudent.getNusnetId())
+                    || (getNusnetId().isEmpty() && otherStudent.getNusnetId().isEmpty()))
+                && getEmail().equals(otherStudent.getEmail()));
+    }
+
+    /**
+     * Returns true if both students are from the same class.
+     */
+    public boolean isFromSameClass(Student otherStudent) {
+        return getModCode().equals(otherStudent.getModCode()) && getTutName().equals(otherStudent.getTutName());
+    }
+
+    /**
+     * Returns true if both students have any unique fields that are equal and not null.
+     */
+    public boolean hasSameAndPresentUniqueFields(Student otherStudent) {
+        boolean hasSameEmail = otherStudent.getEmail().equals(getEmail());
+        boolean hasSameMatNo = (getMatricNum().isPresent() && otherStudent.getMatricNum().isPresent()
+            && otherStudent.getMatricNum().equals(getMatricNum()));
+        boolean hasSameNusId = (getNusnetId().isPresent() && otherStudent.getNusnetId().isPresent()
+                && otherStudent.getNusnetId().equals(getNusnetId()));
+
+        return hasSameEmail || hasSameMatNo || hasSameNusId;
     }
 
     /**

@@ -96,7 +96,7 @@ public class EditCommand extends Command {
         // Includes students who are exactly identical to target student
         boolean hasDuplicateFields = new ArrayList<>(lastShownList).stream()
                 .filter(student -> !student.isSameStudent(studentToEdit))
-                .anyMatch(student -> student.isSamePerson(editedStudent));
+                .anyMatch(student -> student.isDuplicatePerson(editedStudent));
         // TODO: Check this condition again
         
         if (hasDuplicateFields) {

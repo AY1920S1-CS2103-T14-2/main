@@ -12,6 +12,7 @@ import static seedu.tarence.logic.parser.CliSyntax.PREFIX_TUTORIAL_NAME;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javafx.collections.ObservableList;
 import seedu.tarence.commons.core.index.Index;
@@ -73,6 +74,10 @@ public class AddStudentCommand extends Command {
 
     public static final String MESSAGE_DUPLICATE_STUDENT = "Another person already exists with the "
         + "same email/nusid/matriculation number!";
+    public static final String MESSAGE_DUPLICATE_STUDENT_IN_CLASS = "Another person already exists with the "
+            + "same email/nusid/matriculation number in this class!";
+    public static final String MESSAGE_ILLEGAL_COMBINATION_UNIQUE_FIELDS = "Illegal combination of email, "
+        + "matriculation number, and NUSNET ID- one or more values already exists for a different student.";
     public static final String MESSAGE_INVALID_CLASS = "No such module and/or tutorial class exists.";
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_TUTORIAL_IDX_OUT_OF_BOUNDS = "The given tutorial index %d is out of bounds.";
@@ -118,11 +123,23 @@ public class AddStudentCommand extends Command {
 
         // Checks if non-duplicate students share the same data fields
         // Includes students who are exactly identical to target student
-        boolean hasDuplicateFields = studentList.stream()
-                .filter(student -> !student.isSameStudent(toAdd))
-                .anyMatch(student -> student.isSamePerson(toAdd));
-        if (hasDuplicateFields) {
-            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+//        boolean hasDuplicateFields = studentList.stream()
+//                .filter(student -> !student.isSameStudent(toAdd))
+//                .anyMatch(student -> student.isDuplicatePerson(toAdd));
+//        if (hasDuplicateFields) {
+//            throw new CommandException(MESSAGE_DUPLICATE_STUDENT);
+//        }
+
+        if (studentList.stream()
+                .filter(student -> student.hasSameAndPresentUniqueFields(toAdd))
+                .anyMatch(student -> !student.isValidDuplicate(toAdd))) {
+            throw new CommandException(MESSAGE_ILLEGAL_COMBINATION_UNIQUE_FIELDS);
+        }
+
+        if (studentList.stream()
+                .filter(student -> student.hasSameAndPresentUniqueFields(toAdd))
+                .anyMatch(student -> student.isFromSameClass(toAdd))) {
+            throw new CommandException(MESSAGE_DUPLICATE_STUDENT_IN_CLASS);
         }
 
         if (!model.hasTutorialInModule(toAdd.getModCode(), toAdd.getTutName())) {
@@ -143,12 +160,14 @@ public class AddStudentCommand extends Command {
 
         }
 
-        if (!hasDuplicateStudents) {
-            model.addStudent(toAdd);
-        } else {
-            // Risky - attempts to ignore possible existence of duplicate students
-            model.addStudentIgnoreDuplicates(toAdd);
-        }
+        model.addStudentIgnoreDuplicates(toAdd);
+
+//        if (!hasDuplicateStudents) {
+//            model.addStudent(toAdd);
+//        } else {
+//            // Risky - attempts to ignore possible existence of duplicate students
+//            model.addStudentIgnoreDuplicates(toAdd);
+//        }
         model.addStudentToTutorial(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

@@ -33,7 +33,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::isSamePerson);
+        return internalList.stream().anyMatch(toCheck::isDuplicatePerson);
     }
 
     /**
@@ -42,9 +42,9 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void add(Person toAdd) {
         requireNonNull(toAdd);
-        if (contains(toAdd)) {
-            throw new DuplicatePersonException();
-        }
+//        if (contains(toAdd)) {
+//            throw new DuplicatePersonException();
+//        }
         internalList.add(toAdd);
     }
 
@@ -98,9 +98,9 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
-            throw new DuplicatePersonException();
-        }
+//        if (!personsAreUnique(persons)) {
+//            throw new DuplicatePersonException();
+//        }
 
         internalList.setAll(persons);
     }

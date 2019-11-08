@@ -46,6 +46,14 @@ public class Person {
     }
 
     /**
+     * Returns true if both persons are duplicates.
+     * Todo: Refactor
+     */
+    public boolean isDuplicatePerson(Person otherPerson) {
+        return isSamePerson(otherPerson);
+    }
+
+    /**
      * Returns true if both persons have the same identity or data fields.
      * This defines a stronger notion of equality between two persons.
      */
