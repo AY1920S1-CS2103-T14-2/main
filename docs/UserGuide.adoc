@@ -358,7 +358,7 @@ Command synonyms: `listassignments`, `lista`
 
 Allows user to display overall attendance for a class.
 
-image::AttendanceDisplay.png[width="790"]
+image::AttendanceDisplay.png[width="400"]
 
 Full Format: `displayAttendance m/MOD_CODE tn/TUTORIAL_NAME`
 
