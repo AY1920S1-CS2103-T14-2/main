@@ -57,7 +57,6 @@ public class AttendancePanel extends UiPart<Region> {
      * @param tutorial - tutorial containing attendance to display
      */
     public void generateTable(Tutorial tutorial) {
-        requireNonNull(tutorial);
         this.panel.getChildren().clear();
         try {
             ObservableList<String[]> observableAttendance = generateData(tutorial);
@@ -74,7 +73,7 @@ public class AttendancePanel extends UiPart<Region> {
     /**
      * Returns default panel with user info
      */
-    public void setDefaultPlaceHolder() {
+    private void setDefaultPlaceHolder() {
         String defaultMessage = "Welcome to T.A.rence \uD83D\uDE0A\n"
                 + "To see all user commands, type \"help\"\n"
                 + "To view a class attendance, type:\n"

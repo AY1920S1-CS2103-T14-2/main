@@ -101,7 +101,7 @@ public class AssignmentTablePanel extends UiPart<Region> {
     /**
      * sets default placeholder. To be used only during exceptions.
      */
-    public void setDefaultPlaceHolderLabel() {
+    private void setDefaultPlaceHolderLabel() {
         this.isDefault = true;
         String defaultMessage = "Sorry :( there are no scores to display";
 

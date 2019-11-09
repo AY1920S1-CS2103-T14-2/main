@@ -173,7 +173,7 @@ public class AssignmentStatisticsPanel extends UiPart<Region> {
         return resultInfo.values().stream().filter(i -> i != -1).collect(Collectors.toList());
     }
 
-    public void setDefaultPlaceHolderLabel() {
+    private void setDefaultPlaceHolderLabel() {
         cardPane.getChildren().clear();
         this.isDefault = true;
         String emptyListMessage = "Sorry :( there are no scores to display";

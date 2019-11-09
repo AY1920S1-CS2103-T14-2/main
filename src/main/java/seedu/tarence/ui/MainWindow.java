@@ -41,8 +41,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private TutorialListPanel tutorialListPanel;
-    private PersonListPanel personListPanel;
-    private DefaultAssignmentPanel defaultAssignmentPanel;
+    private DefaultPanel defaultPanel;
     private AssignmentListPanel assignmentListPanel;
     private AssignmentTablePanel assignmentTablePanel;
     private AssignmentStatisticsPanel assignmentStatisticsPanel;
@@ -85,9 +84,6 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     private StackPane tutorialListPanelPlaceholder;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane studentListPanelPlaceholder;
@@ -169,16 +165,13 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        //personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        //personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         // Set default stackpane
         assignmentListPanel = new AssignmentListPanel();
         attendancePanel = new AttendancePanel();
         assignmentTablePanel = new AssignmentTablePanel();
         assignmentStatisticsPanel = new AssignmentStatisticsPanel();
-        defaultAssignmentPanel = new DefaultAssignmentPanel();
-        assignmentPanelPlaceholder.getChildren().add(defaultAssignmentPanel.getPane());
+        defaultPanel = new DefaultPanel();
+        assignmentPanelPlaceholder.getChildren().add(defaultPanel.getPane());
         attendancePanelPlaceholder.getChildren().add(new AttendancePanel().getPane());
 
         moduleListPanel = new ModuleListPanel(logic.getFilteredModuleList());
@@ -276,10 +269,6 @@ public class MainWindow extends UiPart<Stage> {
         if (!attendanceTab.isSelected()) {
             displayTabPane.getSelectionModel().select(attendanceTab);
         }
-    }
-
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
     }
 
     /**
@@ -446,14 +435,12 @@ public class MainWindow extends UiPart<Stage> {
     private void displayDefaultPanel() {
         if (!attendancePanel.isDefaultView()) {
             attendancePanelPlaceholder.getChildren().clear();
-            attendancePanel.setDefaultPlaceHolder();
-            attendancePanelPlaceholder.getChildren().add(attendancePanel.getPane());
+            attendancePanelPlaceholder.getChildren().add(defaultPanel.getPane());
         }
-        if (!assignmentTablePanel.isDefaultView() || !assignmentStatisticsPanel.isDefaultView()) {
+        if (!assignmentTablePanel.isDefaultView() || !assignmentStatisticsPanel.isDefaultView() ||
+                !assignmentListPanel.isDefaultView()) {
             assignmentPanelPlaceholder.getChildren().clear();
-            assignmentTablePanel.setDefaultPlaceHolderLabel();
-            assignmentStatisticsPanel.setDefaultPlaceHolderLabel();
-            assignmentPanelPlaceholder.getChildren().add(attendancePanel.getPane());
+            assignmentPanelPlaceholder.getChildren().add(defaultPanel.getPane());
         }
     }
 
