@@ -1,4 +1,4 @@
-﻿= T.A.rence - Draft User Guide
+﻿= T.A.rence - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -312,9 +312,9 @@ Returns any person having names `Betsy`, `Tim`, or `John`
 
 Allows user to display overall results for an exam or assignment. This can be in the form of a graph or table,
 
-image::Ui.png[width="790"]
+image::Ui.png[width="400"]
 
-image::AssignmentTable.png[width="790"]
+image::AssignmentTable.png[width="400"]
 
 Format: `displayAssignmentScore` i/TUTORIAL_INDEX n/ASSIGNMENT_NAME f/DISPLAY_FORMAT`.
 
@@ -341,7 +341,7 @@ Command synonyms: `displayscore`, `displayassignment`, `displayassignment`
 
 Allows user to list out existing assignments in a tutorial.
 
-image::ListAssignment.png[width="790"]
+image::ListAssignment.png[width="400"]
 
 Format: `displayAssignments `TUTORIAL_INDEX`.
 
