@@ -57,6 +57,7 @@ public class AttendancePanel extends UiPart<Region> {
      * @param tutorial - tutorial containing attendance to display
      */
     public void generateTable(Tutorial tutorial) {
+        requireNonNull(tutorial);
         this.panel.getChildren().clear();
         try {
             ObservableList<String[]> observableAttendance = generateData(tutorial);

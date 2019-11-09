@@ -437,8 +437,8 @@ public class MainWindow extends UiPart<Stage> {
             attendancePanelPlaceholder.getChildren().clear();
             attendancePanelPlaceholder.getChildren().add(defaultPanel.getPane());
         }
-        if (!assignmentTablePanel.isDefaultView() || !assignmentStatisticsPanel.isDefaultView() ||
-                !assignmentListPanel.isDefaultView()) {
+        if (!assignmentTablePanel.isDefaultView() || !assignmentStatisticsPanel.isDefaultView()
+                || !assignmentListPanel.isDefaultView()) {
             assignmentPanelPlaceholder.getChildren().clear();
             assignmentPanelPlaceholder.getChildren().add(defaultPanel.getPane());
         }
