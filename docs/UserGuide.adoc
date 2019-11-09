@@ -390,7 +390,7 @@ Format: `list` TUTORIAL_INDEX
 
 Example:
 
-* `list i/1 n/Lab01 f/graph`
+* `list 1`
 * `list`
 
 [TIP]
