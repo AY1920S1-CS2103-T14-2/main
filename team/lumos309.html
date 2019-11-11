@@ -42,10 +42,10 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Autocorrect generates alternative commands when the user&#8217;s input does not match data within the application. When there are multiple fields that may have been entered incorrectly (e.g. tutorial names and module codes), T.A.rence attempts to generate different combinations of possible valid values. Fuzzy string matching is used to find data strings that are similar to the user&#8217;s input.</p>
+<p>Autocorrect generates alternative commands when the user&#8217;s input does not match data within the application. When there are multiple fields that may have been entered incorrectly (e.g. tutorial names and module codes), T.A.rence attempts to generate different combinations of possible valid values. Fuzzy string matching is used to find data strings that are similar to the user&#8217;s input. [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/60">PR #60</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/62">PR #62</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/67">PR #67</a>]</p>
 </li>
 <li>
-<p>Autocomplete suggests data values to complete the user&#8217;s current partial input, based on the last detected prefix. It also provides command keyword prompts when appropriate.</p>
+<p>Autocomplete suggests data values to complete the user&#8217;s current partial input, based on the last detected prefix. It also provides command keyword prompts when appropriate. [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/82">PR #82</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/107">PR #107</a>]</p>
 </li>
 </ul>
 </div>
@@ -115,6 +115,12 @@
 <ul>
 <li>
 <p>Tests to sustain codebase integrity, e.g. [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/105">PR #105</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/196">PR #196</a>]</p>
+</li>
+<li>
+<p>Milestone management, e.g. [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/issues/45">1</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/issues/45">2</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/pull/67">3</a>], [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/issues/90">4</a>]</p>
+</li>
+<li>
+<p>Bug reporting for other teams: [<a href="https://github.com/AY1920S1-CS2103-F09-1/main/issues/138">1</a>], [<a href="https://github.com/AY1920S1-CS2103-F09-1/main/issues/140">2</a>], [<a href="https://github.com/AY1920S1-CS2103-F09-1/main/issues/142">3</a>], [<a href="https://github.com/AY1920S1-CS2103-F09-1/main/issues/143">4</a>], [<a href="https://github.com/AY1920S1-CS2103-F09-1/main/issues/144">5</a>]</p>
 </li>
 </ul>
 </div>
@@ -187,12 +193,79 @@
 <div class="paragraph">
 <p>Every command entered into T.A.rence is saved. Press the "UP" key to bring up older commands and the "DOWN" key to move back to more recent ones.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="em-features-em"><a class="link" href="#em-features-em"><em>Features</em></a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="adding-a-tutorial-slot-code-addtutorial-code"><a class="link" href="#adding-a-tutorial-slot-code-addtutorial-code">Adding a Tutorial Slot : <code>addTutorial</code></a></h3>
+<div class="paragraph">
+<p>Adds a tutorial slot into the specified module.<br>
+Pre-condition: Module must already exist inside application. <br>
+Explanation: Adds a tutorial called Tutorial-01 which starts at 1PM, lasts for 60 minutes,
+             and occurs every Monday during weeks 1,2, and 3 into module CS1010.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>addTutorial tn/[TUTORIAL_NAME] st/[START_TIME] dur/[TUTORIAL_DURATION] d/[TUTORIAL_DAY] w/[TUTORIAL_WEEKS] m/[MODULE_CODE]</code></p>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Parts of the [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/UserGuide.adoc#3-features">main features</a>]</p>
+<p><code>addTutorial tn/Tutorial-01 st/1300 dur/60 d/Mon w/1,2,3 m/CS1010S</code></p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>START_TIME is in the format hhmm.<br>
+TUTORIAL_DURATION is in minutes</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Other input options for <code>weeks</code> field:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>w/even</code> - weeks 4, 6, 8, 10, 12</p>
+</li>
+<li>
+<p><code>w/odd</code> - weeks 3, 5, 7, 9, 11, 13</p>
+</li>
+<li>
+<p><code>w/x-y</code> - weeks x to y inclusive, where x and y are integers from 1 to 13 inclusive</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Omit <code>w/</code> field for the default tutorial weeks (3-13 inclusive).</p>
+</div>
+<div class="paragraph">
+<p>Command synonyms: <code>addtut</code>, <code>addtutorial</code></p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -706,11 +779,8 @@ tutorial and module.</p>
 </ul>
 </div>
 </li>
-<li>
-<p>Parts of [<a href="https://github.com/AY1920S1-CS2103-T14-2/main/blob/master/docs/DeveloperGuide.adoc#appendix-c-use-cases">Appendix C: Use Cases</a>]</p>
-</li>
 </ul>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 09:39:15 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:35:21 UTC</div></div></div></body></html>
