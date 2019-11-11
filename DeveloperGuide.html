@@ -25,9 +25,10 @@
 <li><a href="#autocorrect-feature">3.3. Autocorrect feature</a></li>
 <li><a href="#list-feature">3.4. list feature</a></li>
 <li><a href="#mark-attendance-feature">3.5. Mark Attendance feature</a></li>
-<li><a href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></li>
-<li><a href="#logging">3.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.8. Configuration</a></li>
+<li><a href="#undo-feature">3.6. Undo feature</a></li>
+<li><a href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></li>
+<li><a href="#logging">3.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a></li>
@@ -692,10 +693,17 @@ Errors will be thrown if the tutorial/module/student cannot be found, or if the 
 </div>
 </div>
 <div class="paragraph">
-<p>Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student&#8217;s attendance when executed.
-=== Undo/Redo feature
-==== Implementation</p>
+<p>Entering the input will call the execute() method in LogicManager, which identifies the command as a MarkAttendanceCommand via ApplicationParser.parse(). MarkAttendanceCommand.parse() is then called to parse the input and extract the relevant information (tutorial name, module code, student name) which is used to initialize the MarkAttendanceCommand, which finally modifies the student&#8217;s attendance when executed.</p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-feature"><a class="link" href="#undo-feature">3.6. Undo feature</a></h3>
+<div class="paragraph">
+<p>The undo feature allows the user to undo multiple commands at once.</p>
+</div>
+<div class="sect3">
+<h4 id="implementation-9"><a class="link" href="#implementation-9">3.6.1. Implementation</a></h4>
 <div class="paragraph">
 <p>The undo mechanism is facilitated by <code>JsonStateStorage</code>.
 It extends <code>TARence</code> with an undo history, stored externally as a <code>stateXX.json</code> file
@@ -899,7 +907,7 @@ the previous state, <code>JsonStateStorage#saveApplication()</code> will not sav
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.5.2. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
 <div class="ulist">
@@ -996,7 +1004,7 @@ redundant data.</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
+<p><strong>Alternative 4:</strong> Use <code>HistoryManager</code> for undo.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1014,20 +1022,20 @@ redundant data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.6. [Proposed] Data Encryption</a></h3>
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.7. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1058,7 +1066,7 @@ redundant data.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g user prefs file location, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2203,4 +2211,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 10:35:21 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 11:09:23 UTC</div></div></div></body></html>
