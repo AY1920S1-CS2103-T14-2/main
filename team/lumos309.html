@@ -304,6 +304,66 @@ The lifeline for <code>DeleteCommandParser</code> should end at the destroy mark
 </div>
 </div>
 <div class="sect2">
+<h3 id="autocorrect-feature"><a class="link" href="#autocorrect-feature">Autocorrect feature</a></h3>
+<div class="paragraph">
+<p>Autocorrect lets T.A.rence find similar commands to the user&#8217;s input, allowing it to catch minor typing mistakes.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicAutocorrectClassDiagram.png" alt="LogicAutocorrectClassDiagram">
+</div>
+<div class="title">Figure 4. Structure of the Autocorrect portion of the Logic component</div>
+</div>
+<div class="sect3">
+<h4 id="implementation-2"><a class="link" href="#implementation-2">Implementation</a></h4>
+<div class="paragraph">
+<p>Autocorrect is implemented at the <code>Command</code> level: when <code>Command</code> objects are executed, they attempt to find their data values from the application&#8217;s storage. If these values are not found, they search for lexically similar alternatives, and construct new `Command`s with these suggested values. The user is then prompted to choose one of these suggestions via a single numerical input.</p>
+</div>
+<div class="paragraph">
+<p>A new <code>SelectSuggestionCommand</code> is used to represent the user&#8217;s selection. Unlike other commands it has no keyword, and can only be triggered when there are existing suggested commands being temporarily cached. Should the user choose not to pick any of the options, the cached commands are deleted and can no longer be triggered subsequently.</p>
+</div>
+<div class="paragraph">
+<p>Autocorrect is restricted to input fields that are not strictly numerical, since it makes no sense to correct, for example, index or time inputs.</p>
+</div>
+<div class="paragraph">
+<p>Below is an activity diagram showing the creation of suggested autocorrect commands when a command is executed.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutocorrectActivityCreate.png" alt="AutocorrectActivityCreate">
+</div>
+</div>
+<div class="paragraph">
+<p>The suggested commands are presented to the user, each tagged with an index number. The user is prompted to select one option by entering its corresponding number.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutocorrectActivityExecute.png" alt="AutocorrectActivityExecute">
+</div>
+</div>
+<div class="paragraph">
+<p>When a valid option is selected, the <code>execute()</code> method in <code>SelectSuggestionCommand</code> retrieves the specified command, then calls its <code>execute()</code> method. The sequence diagram below illustrates a sample run of the program where `AddStudentCommand`s are being autocorrected.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/AutocorrectSequence.png" alt="AutocorrectSequence">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The lifelines for <code>SelectSuggestionCommand</code> and <code>AddStudentCommand</code> should end at their destroy markers (X) but due to a limitation of PlantUML, the lifelines reach the end of diagram.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="em-use-cases-em"><a class="link" href="#em-use-cases-em"><em>Use Cases</em></a></h3>
 <h3 id="use-case-new-tutorial-entry" class="discrete">Use case: New tutorial entry</h3>
 <div class="paragraph">
@@ -653,4 +713,4 @@ tutorial and module.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 08:57:11 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2019-11-11 09:23:24 UTC</div></div></div></body></html>
